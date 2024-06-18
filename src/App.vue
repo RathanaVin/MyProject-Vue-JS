@@ -5,10 +5,10 @@
 </template>
 <script>
 import index2 from './components/index2.vue';
-export default {
-  components : {
-    index2
+  export default {
+    components : {
+      index2
+    }
   }
-}
 </script>
 

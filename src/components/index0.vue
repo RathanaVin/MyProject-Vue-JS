@@ -7,8 +7,8 @@
             <div>
                 <ul>
                     <li>Home</li>
-                    <li>Add User</li>
-                </ul>
+                    <li><button @click="handleadduser">Add User</button></li>
+                </ul> 
             </div>
         </header>
         <main>
@@ -32,18 +32,40 @@
                     </td>
                 </tr>
             </table>
-            <form v-if="isVisible" class="myform" @submit.prevent="handleChnage">
-                <h2 class="font-bold text-4xl text-yellow-300 text-center">Form for Edit</h2>
+            <form v-if="isVisibleadd" class="myform" @submit.prevent="handleadd">
+              <h2 class="text">Form for Add User</h2>
+              <div>
+                  <label for="id">ID :</label>
+                  <input type="number" name="id" v-model="inputValue.ID">
+              </div>
+              <div>
+                  <label for="name">Name :</label>
+                  <input type="text" name="name" v-model="inputValue.Name">
+              </div>
+              <div>
+                  <label for="email">Email :</label>
+                  <input type="email" name="email" v-model="inputValue.Email">
+              </div>
+              <div class="btn">
+                  <button type="submit">Submit</button>
+                  <button type="button" @click="handleadduser">Close</button>
+              </div>
+          </form>
+
+
+
+            <form v-if="isVisible" class="myform" @submit.prevent="handleChange">
+                <h2 class="text">Form for Edit</h2>
                 <div>
-                    <label for="id">ID</label>
+                    <label for="id">ID :</label>
                     <input type="number" name="id" v-model="inputValue.ID">
                 </div>
                 <div>
-                    <label for="name">Name</label>
+                    <label for="name">Name :</label>
                     <input type="text" name="name" v-model="inputValue.Name">
                 </div>
                 <div>
-                    <label for="email">Email</label>
+                    <label for="email">Email :</label>
                     <input type="email" name="email" v-model="inputValue.Email">
                 </div>
                 <div class="btn">
@@ -58,6 +80,7 @@
     export default {
         data(){
             return{
+              isVisibleadd : false,
               isVisible : false,
               myIndexKey: 0,
                 inputValue :{
@@ -98,9 +121,19 @@
             this.myInfo[this.myIndexKey].Name = this.inputValue.Name;
             this.myInfo[this.myIndexKey].Email = this.inputValue.Email;
           },
+          handleadduser(){
+            this.isVisibleadd = !this.isVisibleadd;
+          },
+          handleadd (){
+            this.isVisibleadd = !this.isVisibleadd;
+            this.myInfo.push({...this.inputValue});
+          },
           Close(){
             this.isVisible =! this.isVisible;
           },
+          handleDelete(index){
+            this.myInfo.splice(index, 1);
+          }
         }
     }
 </script>
@@ -128,6 +161,13 @@ main{
     display: flex;
     gap: 10px;
     font-weight: bolder;
+  }
+  li{
+    display: grid;
+    text-decoration: none;
+  }
+  li button{
+    cursor: pointer;
   }
   th {
     color: white;
@@ -159,65 +199,56 @@ main{
     font-weight: bold;
     cursor: pointer;
   }
-  li:hover{
-    cursor: pointer;
-    color: blue;
+  .text{
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    color:black;
   }
   form{
-    width: 900px;
-    height: 300px;
-    align-items: center;
-    gap:10px;
-    display: flex;
-    justify-content:center;
-    margin-top: 10px;
-    padding-top: 30px;
-    flex-flow: column;
-    background-color: rgb(206, 199, 199);
+    padding: 20px 20px;
+    width: 500px;
+    height: 250px;
+    background-color:rgb(248, 199, 224);
     border-radius: 10px;
     position: absolute;
+    margin-bottom: 420px;
   }
-  form div{
+  form label{
+    font-weight: bold;
+    width: 300px;
+    font-size: 30px;
+    margin-left: 50px;
+  }
+  form input{
+    width: 300px;
+    height: 30px;
+    cursor: pointer;
+  }
+  .btn{
     display: flex;
     justify-content: center;
-    align-items: center;
   }
-  form div:nth-child(2){
-    gap: 30px;
-  }
-  form div:nth-child(3){
-    gap: 30px;
-  } form div:nth-child(4){
-    gap: 30px;
-  }
-  label{
-    text-align: end;
-    width: 10%;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  input{
-    width: 700px;
-    height: 20px;
-  } 
-  form div:nth-child(5) button:nth-child(1){
-    color : black;
+  form button:nth-child(1){
+    margin-top: 20px;
+    width: 65px;
+    height: 30px;
+    margin-left: 10px;
     background-color: greenyellow;
-  }
-  form div:nth-child(5) button:nth-child(2){
-    color: back;
-    background-color: red;
-  }
-  .btn,button:nth-child(1){
-    gap: 20px;
-    width: 100px;
-    height: 30px;
+    font-size: 15px;
+    font-weight: bold;
     border-radius: 5px;
   }
-  .btn,button:nth-child(2){
-    width: 100px;
+  form button:nth-child(2){
+    margin-top: 20px;
+    width: 60px;
     height: 30px;
+    margin-left: 10px;
+    background-color:red;
+    font-size: 15px;
+    font-weight: bold;
     border-radius: 5px;
   }
+
+   
 </style>
